@@ -11,7 +11,7 @@ describe Nashdown::Parser do
     context 'muliple lines of bars' do
       let(:input) {
         <<~ND
-          1 2-
+          1/3 2-
 
           3_4- 5
         ND
@@ -21,7 +21,7 @@ describe Nashdown::Parser do
         expect(subject).to parse(input).as([
           { 
             bars: [
-              { chords: [{ degree: "1" }] },
+              { chords: [{ degree: "1", slash: "3" }] },
               { chords: [{ degree: "2", quality: '-' }] }
             ]
           },
@@ -103,6 +103,61 @@ describe Nashdown::Parser do
       expect(subject).to parse("1'").as(degree: '1', ticks: "'")
       expect(subject).to parse("5-").as(degree: '5', quality: '-')
       expect(subject).to parse("5-'''").as(degree: '5', quality: '-', ticks: "'''")
+    end
+
+
+    it "parses extensions into the extensions key" do
+      expect(subject.parse('2M7')).to include extensions: [
+        { degree: '7', prefix: 'M' }
+      ]
+
+      expect(subject.parse('2min7add9')).to include extensions: [
+        { degree: '7', prefix: 'min' },
+        { degree: '9', prefix: 'add' }
+      ] 
+
+      expect(subject.parse('2min7add13')).to include extensions: [
+        { degree: '7', prefix: 'min' },
+        { degree: '13', prefix: 'add' }
+      ] 
+
+      expect(subject.parse('2min7add2add3add4add5add6')).to include extensions: [
+        { degree: '7', prefix: 'min' },
+        { degree: '2', prefix: 'add' },
+        { degree: '3', prefix: 'add' },
+        { degree: '4', prefix: 'add' },
+        { degree: '5', prefix: 'add' },
+        { degree: '6', prefix: 'add' }
+      ] 
+
+      expect(subject.parse('2M7sus4')).to include extensions: [
+        { degree: '7', prefix: 'M' },
+        { degree: '4', prefix: 'sus' }
+      ]
+
+      expect(subject.parse('2m9')).to include extensions: [
+        { degree: '9', prefix: 'm' }
+      ]
+
+      expect(subject.parse('2Maj7')).to include extensions: [
+        { degree: '7', prefix: 'Maj' }
+      ]
+
+      expect(subject.parse('2maj7')).to include extensions: [
+        { degree: '7', prefix: 'maj' }
+      ]
+
+      expect(subject.parse('2min7')).to include extensions: [
+        { degree: '7', prefix: 'min' }
+      ]
+
+      expect(subject.parse('2d7')).to include extensions: [
+        { degree: '7', prefix: 'd' }
+      ]
+
+      expect(subject.parse('2dom7')).to include extensions: [
+        { degree: '7', prefix: 'dom' }
+      ] 
     end
 
     it "does not match degrees outside fo 1-7" do
