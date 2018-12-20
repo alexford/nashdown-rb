@@ -16,20 +16,20 @@ describe Nashdown::Parser do
           3_4- 5
         ND
       }
-  
+
       it "parses into lines with bars" do
         expect(subject).to parse(input).as([
           { 
             bars: [
-              { chords: [{ degree: "1", quality: nil }] },
-              { chords: [{ degree: "2", quality: '-' }] }
+              { chords: [{ degree: "1", quality: nil, ticks: nil  }] },
+              { chords: [{ degree: "2", quality: '-', ticks: nil  }] }
             ]
           },
           # (Blank line ignored)
           {
             bars: [
-              { chords: [{ degree: "3", quality: nil }, { degree: "4", quality: '-' }] },
-              { chords: [{ degree: "5", quality: nil }] }
+              { chords: [{ degree: "3", quality: nil, ticks: nil  }, { degree: "4", quality: '-', ticks: nil  }] },
+              { chords: [{ degree: "5", quality: nil, ticks: nil  }] }
             ]
           }
         ])
@@ -40,20 +40,20 @@ describe Nashdown::Parser do
   describe "#bars Rule" do
     subject { parser.bars }
     it "parses multiple bars" do
-      expect(subject).to parse("1 2_3- 4").as([
+      expect(subject).to parse("1 2_3-'' 4").as([
         {
-          chords: [ { degree: '1', quality: nil } ]
+          chords: [ { degree: '1', quality: nil, ticks: nil } ]
         },
         {
           # Tied bar
           chords: [
-            { degree: '2', quality: nil },
-            { degree: '3', quality: '-' }
+            { degree: '2', quality: nil, ticks: nil },
+            { degree: '3', quality: '-', ticks: "''" }
           ]
         },
         {
           chords: [
-            { degree: '4', quality: nil }
+            { degree: '4', quality: nil, ticks: nil }
           ]
         }
       ])
@@ -61,7 +61,7 @@ describe Nashdown::Parser do
 
     it "parses one bar" do
       expect(subject).to parse("1").as([
-        { chords: [ { degree: '1', quality: nil } ] }
+        { chords: [ { degree: '1', quality: nil, ticks: nil } ] }
       ])
     end
   end
@@ -71,25 +71,25 @@ describe Nashdown::Parser do
 
     it "parses a bar of one Chord" do
       expect(subject).to parse("1").as({
-        chords: [ { degree: '1', quality: nil } ]
+        chords: [ { degree: '1', quality: nil, ticks: nil } ]
       })
     end
 
     it "parses a bar of two Chords tied together" do
-      expect(subject).to parse("1_2").as({
+      expect(subject).to parse("1''_2").as({
         chords: [
-          { degree: '1', quality: nil },
-          { degree: '2', quality: nil }
+          { degree: '1', quality: nil, ticks: "''" },
+          { degree: '2', quality: nil, ticks: nil }
         ]
       })
     end
 
     it "parses a bar of three Chords tied together" do
-      expect(subject).to parse("1_2_3").as({
+      expect(subject).to parse("1_2_3''").as({
         chords: [
-          { degree: '1', quality: nil },
-          { degree: '2', quality: nil },
-          { degree: '3', quality: nil }
+          { degree: '1', quality: nil, ticks: nil },
+          { degree: '2', quality: nil, ticks: nil },
+          { degree: '3', quality: nil, ticks: "''" }
         ]
       })
     end
@@ -98,15 +98,17 @@ describe Nashdown::Parser do
   describe "#chord Rule" do
     subject { parser.chord }
 
-    it "parses degree and quality" do
-      expect(subject).to parse("1").as(degree: '1', quality: nil)
-      expect(subject).to parse("5-").as(degree: '5', quality: '-')
+    it "parses degree, quality, and ticks" do
+      expect(subject).to parse("1").as(degree: '1', quality: nil, ticks: nil)
+      expect(subject).to parse("1'").as(degree: '1', quality: nil, ticks: "'")
+      expect(subject).to parse("5-").as(degree: '5', quality: '-', ticks: nil)
+      expect(subject).to parse("5-'''").as(degree: '5', quality: '-', ticks: "'''")
     end
 
     it "does not match degrees outside fo 1-7" do
       expect(subject).not_to parse("0")
       expect(subject).not_to parse("-1")
-      expect(subject).not_to parse("-8")
+      expect(subject).not_to parse("-8-''")
     end
   end
 end

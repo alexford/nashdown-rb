@@ -9,11 +9,17 @@ class Nashdown::Parser < Parslet::Parser
 
   rule(:bars)    { bar.repeat(1) }
   rule(:bar)     { (chord >> opt_tie).repeat(1).as(:chords) >> space }
-  rule(:chord)   { degree.as(:degree) >> opt_quality.as(:quality) }
+
+  rule(:chord)  do
+    degree.as(:degree) >>
+    opt_quality.as(:quality) >>
+    opt_ticks.as(:ticks)
+  end
 
   rule(:degree)       { match['1-7'] }
   rule(:opt_quality)  { match('-').maybe }
   rule(:opt_tie)      { match('_').maybe }
+  rule(:opt_ticks)    { match('\'').repeat(1).maybe }
 
   rule(:integer) { c('0-9', :int) }
   rule(:space?)  { space.maybe }
