@@ -1,14 +1,11 @@
 # nashdown
-A simple human-readable file format and Ruby-based parser for Nashville Number System chord charts
+A simple human-readable file format and parser for Nashville Number System chord charts
 
-### WIP/Notes
+Uses Parslet (https://github.com/kschiess/parslet) to define PEG.
 
-.nd files
+# Examples
 
-WIP regex exploration [Rubular: (b|#)?(1-7)(-)?(m7|min7|Maj7|maj7|M7|d7)?((add|sus|aug|dim)1-9{0,2})?(\/1-7)?](http://rubular.com/r/TdgXYvHcIX)
-
- http://rubular.com/r/UOem6bu6Fr
-
+_Note: most of this is unimplemented_
 
 ## Basic Chart
 ```
