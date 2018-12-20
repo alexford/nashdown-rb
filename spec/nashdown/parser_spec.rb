@@ -110,5 +110,10 @@ describe Nashdown::Parser do
       expect(subject).not_to parse("-1")
       expect(subject).not_to parse("-8-''")
     end
+
+    it "parses accidentals into the degree" do
+      expect(subject).to parse("b5").as(degree: 'b5', quality: nil, ticks: nil)
+      expect(subject).to parse("#5").as(degree: '#5', quality: nil, ticks: nil)
+    end
   end
 end

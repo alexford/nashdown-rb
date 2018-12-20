@@ -14,7 +14,7 @@ class Nashdown::Parser < Parslet::Parser
   end
 
   # Chord Components
-  rule(:degree)       { match['1-7'] }
+  rule(:degree)       { (str('b') | str('#')).maybe >> match['1-7'] }
   rule(:opt_quality)  { match('-').maybe }
   rule(:opt_tie)      { match('_').maybe }
   rule(:opt_ticks)    { match('\'').repeat(1).maybe }
