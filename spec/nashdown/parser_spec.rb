@@ -6,42 +6,92 @@ describe Nashdown::Parser do
   let(:parser) { described_class.new }
   
   describe 'Multi-line input' do
-    let(:input) do
-      <<~ND
-        1 2-
-        2
-        3
-      ND
-    end
-
     subject { parser }
 
-    context 'muliple lines of chords' do  
-      it "parses into lines with chords" do
+    context 'muliple lines of bars' do
+      let(:input) {
+        <<~ND
+          1 2-
+
+          3_4- 5
+        ND
+      }
+  
+      it "parses into lines with bars" do
         expect(subject).to parse(input).as([
-          { chords: [ { degree: "1", quality: nil }, { degree: "2", quality: '-' } ] },
-          { chords: [ { degree: "2", quality: nil } ] },
-          { chords: [ { degree: "3", quality: nil } ] }
+          { 
+            bars: [
+              { chords: [{ degree: "1", quality: nil }] },
+              { chords: [{ degree: "2", quality: '-' }] }
+            ]
+          },
+          # (Blank line ignored)
+          {
+            bars: [
+              { chords: [{ degree: "3", quality: nil }, { degree: "4", quality: '-' }] },
+              { chords: [{ degree: "5", quality: nil }] }
+            ]
+          }
         ])
       end
     end
   end
 
-  describe "#chords Rule" do
-    subject { parser.chords }
-    it "parses multiple chords" do
-      expect(subject).to parse("1 2 3- 4").as([
-        { degree: '1', quality: nil },
-        { degree: '2', quality: nil },
-        { degree: '3', quality: '-' },
-        { degree: '4', quality: nil }
+  describe "#bars Rule" do
+    subject { parser.bars }
+    it "parses multiple bars" do
+      expect(subject).to parse("1 2_3- 4").as([
+        {
+          chords: [ { degree: '1', quality: nil } ]
+        },
+        {
+          # Tied bar
+          chords: [
+            { degree: '2', quality: nil },
+            { degree: '3', quality: '-' }
+          ]
+        },
+        {
+          chords: [
+            { degree: '4', quality: nil }
+          ]
+        }
       ])
     end
 
-    it "parses one chord" do
+    it "parses one bar" do
       expect(subject).to parse("1").as([
-        { degree: '1', quality: nil }
+        { chords: [ { degree: '1', quality: nil } ] }
       ])
+    end
+  end
+
+  describe "#bar Rule" do
+    subject { parser.bar }
+
+    it "parses a bar of one Chord" do
+      expect(subject).to parse("1").as({
+        chords: [ { degree: '1', quality: nil } ]
+      })
+    end
+
+    it "parses a bar of two Chords tied together" do
+      expect(subject).to parse("1_2").as({
+        chords: [
+          { degree: '1', quality: nil },
+          { degree: '2', quality: nil }
+        ]
+      })
+    end
+
+    it "parses a bar of three Chords tied together" do
+      expect(subject).to parse("1_2_3").as({
+        chords: [
+          { degree: '1', quality: nil },
+          { degree: '2', quality: nil },
+          { degree: '3', quality: nil }
+        ]
+      })
     end
   end
 
