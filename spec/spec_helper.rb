@@ -1,3 +1,5 @@
+require 'pry'
+
 RSpec.configure do |config|
   # Stuff
 end

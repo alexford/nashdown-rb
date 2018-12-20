@@ -9,15 +9,17 @@ class Nashdown::Parser < Parslet::Parser
 
   rule(:chord) do
     degree.as(:degree) >>
-    opt_quality.as(:quality) >>
-    opt_ticks.as(:ticks)
+    opt_quality >>
+    opt_slash >>
+    opt_ticks
   end
 
   # Chord Components
   rule(:degree)       { (str('b') | str('#')).maybe >> match['1-7'] }
-  rule(:opt_quality)  { match('-').maybe }
+  rule(:opt_slash)    { (str("/") >> match['1-7'].as(:slash)).maybe }
+  rule(:opt_quality)  { match('-').as(:quality).maybe }
+  rule(:opt_ticks)    { match('\'').repeat(1).as(:ticks).maybe }
   rule(:opt_tie)      { match('_').maybe }
-  rule(:opt_ticks)    { match('\'').repeat(1).maybe }
 
   # Whitespace
   rule(:space?)  { space.maybe }
