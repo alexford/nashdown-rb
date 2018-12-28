@@ -34,4 +34,7 @@ class Nashdown::Transform < Parslet::Transform
 
   # Count ticks
   rule(ticks: simple(:string)) { { ticks: string.length } }
+
+  # Stringify degree
+  rule(degree: simple(:slice)) { { degree: slice.to_s } }
 end

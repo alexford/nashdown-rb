@@ -8,7 +8,7 @@ module Nashdown::AST
     end
 
     def degree
-      @degree ||= @attributes[:degree].to_s
+      @degree ||= @attributes[:degree]
     end
 
     def quality
