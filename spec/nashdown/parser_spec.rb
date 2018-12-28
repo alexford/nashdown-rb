@@ -28,8 +28,8 @@ describe Nashdown::Parser do
           # (Blank line ignored)
           {
             bars: [
-              { chords: [{ degree: "3"  }, { degree: "4", quality: '-'  }] },
-              { chords: [{ degree: "5"  }] }
+              { chords: [{ degree: "3" }, { degree: "4", quality: '-' }] },
+              { chords: [{ degree: "5" }] }
             ]
           }
         ])
