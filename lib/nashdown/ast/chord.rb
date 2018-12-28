@@ -1,7 +1,6 @@
 module Nashdown::AST
   class Chord
-    attr_accessor :degree
-    attr_accessor :attributes
+    attr_reader :attributes
 
     def initialize(attributes)
       @attributes = attributes
