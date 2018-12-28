@@ -85,9 +85,9 @@ describe Nashdown::Parser do
     end
 
     it "parses a bar of three Chords tied together" do
-      expect(subject).to parse("1_2_3''").as({
+      expect(subject).to parse("1Maj7_2_3''").as({
         chords: [
-          { degree: '1' },
+          { degree: '1', extensions: [degree: '7', prefix: 'Maj'] },
           { degree: '2' },
           { degree: '3', ticks: "''" }
         ]
@@ -105,6 +105,16 @@ describe Nashdown::Parser do
       expect(subject).to parse("5-'''").as(degree: '5', quality: '-', ticks: "'''")
     end
 
+    it "parses augmented qualities" do
+      expect(subject.parse('1+')).to include quality: '+'
+      expect(subject.parse('1aug')).to include quality: 'aug'
+    end 
+
+    it "parses diminished qualities" do
+      expect(subject.parse('2°')).to include quality: '°'
+      expect(subject.parse('2O')).to include quality: 'O'
+      expect(subject.parse('2dim')).to include quality: 'dim'
+    end
 
     it "parses extensions into the extensions key" do
       expect(subject.parse('2M7')).to include extensions: [
@@ -149,10 +159,6 @@ describe Nashdown::Parser do
 
       expect(subject.parse('2min7')).to include extensions: [
         { degree: '7', prefix: 'min' }
-      ]
-
-      expect(subject.parse('2d7')).to include extensions: [
-        { degree: '7', prefix: 'd' }
       ]
 
       expect(subject.parse('2dom7')).to include extensions: [
