@@ -16,8 +16,6 @@ describe Nashdown::Transform do
 
     let(:tree) { Nashdown::Parser.new.parse(nd) }
     let(:lines) { transform.apply(tree) }
-    let(:first_line) { lines.first }
-    let(:first_chord) { lines.first[:bars].first[:chords].first }
 
     def chord(line_index, bar_index, chord_index = 0)
       lines[line_index][:bars][bar_index][:chords][chord_index]
