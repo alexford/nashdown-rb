@@ -20,7 +20,7 @@ module Nashdown::AST
     end
   
     def inspect
-      "#{degree} #{quality.to_s.capitalize}"
+      "#{degree} #{quality.to_s.capitalize}".strip
     end
 
     private
