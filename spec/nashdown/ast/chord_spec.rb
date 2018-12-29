@@ -32,7 +32,7 @@ describe Nashdown::AST::Chord do
 
     context 'when quality is not provided' do
       let(:attributes) { { degree: '4' } }
-      it { is_expected.to eq :major }
+      it { is_expected.to eq nil }
     end
   end
   

@@ -8,11 +8,11 @@ module Nashdown::AST
     end
 
     def degree
-      @degree ||= @attributes[:degree]
+      @attributes[:degree]
     end
 
-    def quality
-      @attributes[:quality] || :major
+    def quality(key: nil)
+      @attributes[:quality]
     end
 
     def ==(other_chord)
