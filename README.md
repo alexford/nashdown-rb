@@ -1,6 +1,6 @@
 # Nashdown
 
-### Nashdown is a work-in-progress syntax for describing [Nashville Number System](https://en.wikipedia.org/wiki/Nashville_number_system) chord charts in a way that is both machine and human readable, implemented in Ruby using Parslet (https://github.com/kschiess/parslet)
+### A work-in-progress syntax for describing [Nashville Number System](https://en.wikipedia.org/wiki/Nashville_number_system) chord charts in a way that is both machine and human readable, implemented in Ruby using [Parslet](https://github.com/kschiess/parslet)
 
 This implementation will eventually include a parser and one or more "Renderers" for exporting the chart in formats like PDF for printing, etc.
 
