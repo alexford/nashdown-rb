@@ -1,11 +1,14 @@
-# nashdown
-A simple human-readable file format and parser for Nashville Number System chord charts
+# Nashdown
 
-Uses Parslet (https://github.com/kschiess/parslet) to define PEG.
+### Nashdown is a work-in-progress syntax for describing [Nashville Number System](https://en.wikipedia.org/wiki/Nashville_number_system) chord charts in a way that is both machine and human readable, implemented in Ruby using Parslet (https://github.com/kschiess/parslet)
 
-# Examples
+This implementation will eventually include a parser and one or more "Renderers" for exporting the chart in formats like PDF for printing, etc.
 
-_Note: most of this is unimplemented_
+Nashdown is inspired by [Markdown](https://daringfireball.net/projects/markdown/) in spirit, but not in implementation nor syntax.
+
+# Examples of Nashdown syntax
+
+_Note: most of this is unimplemented and hypothetical_
 
 ## Basic Chart
 ```
