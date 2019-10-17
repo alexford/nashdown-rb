@@ -18,7 +18,7 @@ module Nashdown
     end
 
     def chord_names
-      chords.map(&:inspect).join("\n")
+      chords.map(&:inspect)
     end
 
     private

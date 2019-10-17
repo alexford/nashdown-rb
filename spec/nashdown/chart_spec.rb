@@ -32,18 +32,18 @@ describe Nashdown::Chart do
   describe "#chord_names" do
     subject { chart.chord_names }
 
-    let(:names) { 
-      <<~NAMES
-        1
-        2 Minor
-        3
-        4 Minor
-        5
-      NAMES
+    let(:names) {
+      [
+        "1",
+        "2 Minor",
+        "3",
+        "4 Minor",
+        "5"
+      ]
     }
 
-    it "inspects the chords" do
-      expect(subject).to eq names.strip
+    it "returns an array of chord names" do
+      expect(subject).to eq names
     end
   end
 end
