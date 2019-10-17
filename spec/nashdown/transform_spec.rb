@@ -11,6 +11,7 @@ describe Nashdown::Transform do
       1/3 2-
 
       3_4-_5/2 5'''
+      3'''_2
       ND
     }
 
@@ -22,12 +23,14 @@ describe Nashdown::Transform do
     end
 
     it "transforms Chords appropriately" do
-      expect(chord(0,0)).to   eq Nashdown::AST::Chord.new(degree: "1", slash: "3")
-      expect(chord(0,1)).to   eq Nashdown::AST::Chord.new(degree: "2", quality: :minor)
-      expect(chord(1,0,0)).to eq Nashdown::AST::Chord.new(degree: "3")
-      expect(chord(1,0,1)).to eq Nashdown::AST::Chord.new(degree: "4", quality: :minor)
-      expect(chord(1,0,2)).to eq Nashdown::AST::Chord.new(degree: "5", slash: "2")
-      expect(chord(1,1)).to   eq Nashdown::AST::Chord.new(degree: "5", ticks: 3)
+      expect(chord(0,0)).to     eq Nashdown::AST::Chord.new(degree: "1", slash: "3")
+      expect(chord(0,1)).to     eq Nashdown::AST::Chord.new(degree: "2", quality: :minor)
+      expect(chord(1,0,0)).to   eq Nashdown::AST::Chord.new(degree: "3")
+      expect(chord(1,0,1)).to   eq Nashdown::AST::Chord.new(degree: "4", quality: :minor)
+      expect(chord(1,0,2)).to   eq Nashdown::AST::Chord.new(degree: "5", slash: "2")
+      expect(chord(1,1)).to     eq Nashdown::AST::Chord.new(degree: "5", ticks: 3)
+      expect(chord(2,0,0)).to   eq Nashdown::AST::Chord.new(degree: "3", ticks: 3)
+      expect(chord(2,0,1)).to   eq Nashdown::AST::Chord.new(degree: "2")
     end
   end
 
