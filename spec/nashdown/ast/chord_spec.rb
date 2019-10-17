@@ -13,7 +13,7 @@ describe Nashdown::AST::Chord do
       end
     end
 
-    context 'without an invalid degree' do
+    context 'with an invalid degree' do
       let(:attributes) { { degree: '8' } }
 
       it 'raises an argument error' do
