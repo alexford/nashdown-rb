@@ -10,7 +10,7 @@ describe Nashdown::Transform do
       <<~ND
       1/3 2-
 
-      3_4- 5'''
+      3_4-_5/2 5'''
       ND
     }
 
@@ -26,6 +26,7 @@ describe Nashdown::Transform do
       expect(chord(0,1)).to   eq Nashdown::AST::Chord.new(degree: "2", quality: :minor)
       expect(chord(1,0,0)).to eq Nashdown::AST::Chord.new(degree: "3")
       expect(chord(1,0,1)).to eq Nashdown::AST::Chord.new(degree: "4", quality: :minor)
+      expect(chord(1,0,2)).to eq Nashdown::AST::Chord.new(degree: "5", slash: "2")
       expect(chord(1,1)).to   eq Nashdown::AST::Chord.new(degree: "5", ticks: 3)
     end
   end
