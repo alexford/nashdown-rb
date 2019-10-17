@@ -9,6 +9,12 @@ module Nashdown
       ast
     end
 
+    def grid
+      lines.map do |line|
+        line[:bars].flatten.compact
+      end
+    end
+
     def bars
       lines.map { |l| l[:bars] }.flatten.compact
     end

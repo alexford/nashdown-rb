@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>Nashdown Chart</title>
+  </head>
+
+  <body>
+    <% @chart.grid.each do |line| %>
+      <div class='line'>
+        <% line.each do |bar| %>
+          <div class='bar'>
+            <%= bar[:chords].flatten.compact.map(&:degree) %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </body>
+</html>
