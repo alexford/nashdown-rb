@@ -15,10 +15,10 @@ module Nashdown::AST
       @attributes[:quality]
     end
 
-    def ==(other_chord)
-      @attributes.sort == other_chord.attributes.sort
+    def ==(other)
+      @attributes.sort == other.attributes.sort
     end
-  
+
     def inspect
       "#{degree} #{quality.to_s.capitalize}".strip
     end
@@ -27,7 +27,7 @@ module Nashdown::AST
 
     def assert_valid!
       raise ArgumentError, 'degree attribute must be present' unless degree && degree.length > 0
-      raise ArgumentError, 'degree must be within 1-7' unless degree[-1].to_i&.between?(1,7)
+      raise ArgumentError, 'degree must be within 1-7' unless degree[-1].to_i&.between?(1, 7)
     end
   end
 end

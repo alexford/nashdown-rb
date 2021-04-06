@@ -13,8 +13,8 @@ class Nashdown::Transform < Parslet::Transform
   # This is a hack to let key: value rules like the tick counting
   # match on individual keys in the given Hash
   def self.transform_chord_attributes(attrs)
-    attrs.map do |k,v|
-      [k, self.new.apply(Hash[k,v]).values.first]
+    attrs.map do |k, v|
+      [k, new.apply(Hash[k, v]).values.first]
     end.to_h
   end
 
@@ -22,10 +22,10 @@ class Nashdown::Transform < Parslet::Transform
 
   # Normalize quality symbols
   {
-    minor: %w(-),
-    augmented: %w(aug +),
-    diminished: %w(° O o dim),
-    half_diminished: %w(0)
+    minor: %w[-],
+    augmented: %w[aug +],
+    diminished: %w[° O o dim],
+    half_diminished: %w[0]
   }.each do |quality, symbols|
     symbols.each do |symbol|
       rule(symbol) { quality }

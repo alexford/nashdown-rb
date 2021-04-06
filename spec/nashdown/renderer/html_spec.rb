@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe Nashdown::Renderer::HTML do
-  let(:nd) {
+  let(:nd) do
     <<~ND
       1/3 2-
 
       3_4- 5'''
     ND
-  }
+  end
 
   let(:chart) { Nashdown::Chart.new(nd) }
   let(:options) { {} }

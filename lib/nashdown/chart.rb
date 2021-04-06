@@ -1,4 +1,3 @@
-
 module Nashdown
   class Chart
     def initialize(markup)

@@ -12,7 +12,7 @@ class Nashdown::Renderer::HTML
   private
 
   def template
-    template_path = File.join(File.dirname(__FILE__), "templates/chart.html.erb")
+    template_path = File.join(File.dirname(__FILE__), 'templates/chart.html.erb')
 
     @template ||= File.read(template_path)
   end
