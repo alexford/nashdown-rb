@@ -1,0 +1,19 @@
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+
+Style/StringLiterals:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+  IndentationWidth: 2
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Style/Documentation:
+  Enabled: false

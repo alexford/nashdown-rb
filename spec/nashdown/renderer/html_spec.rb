@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Nashdown::Renderer::HTML do
@@ -5,9 +7,11 @@ describe Nashdown::Renderer::HTML do
     <<~ND
       1/3 2-
 
-      3_4- 5'''
+      3_4- 5\'\'\'
     ND
   end
+
+  # NOTE: This comment is to reset broken highlighting :\
 
   let(:chart) { Nashdown::Chart.new(nd) }
   let(:options) { {} }

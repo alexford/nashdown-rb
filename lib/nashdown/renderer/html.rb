@@ -1,23 +1,28 @@
-class Nashdown::Renderer::HTML
-  def initialize(chart, options = {})
-    @chart = chart
-    @options = options
-  end
+# frozen_string_literal: true
 
-  def output
-    chart = @chart
-    render_template
-  end
+module Nashdown
+  module Renderer
+    class HTML
+      def initialize(chart, options = {})
+        @chart = chart
+        @options = options
+      end
 
-  private
+      def output
+        render_template
+      end
 
-  def template
-    template_path = File.join(File.dirname(__FILE__), 'templates/chart.html.erb')
+      private
 
-    @template ||= File.read(template_path)
-  end
+      def template
+        template_path = File.join(File.dirname(__FILE__), 'templates/chart.html.erb')
 
-  def render_template
-    ERB.new(template).result(binding)
+        @template ||= File.read(template_path)
+      end
+
+      def render_template
+        ERB.new(template).result(binding)
+      end
+    end
   end
 end

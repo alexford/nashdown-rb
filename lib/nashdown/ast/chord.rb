@@ -1,33 +1,37 @@
-module Nashdown::AST
-  class Chord
-    attr_reader :attributes
+# frozen_string_literal: true
 
-    def initialize(attributes)
-      @attributes = attributes
-      assert_valid!
-    end
+module Nashdown
+  module AST
+    class Chord
+      attr_reader :attributes
 
-    def degree
-      @attributes[:degree]
-    end
+      def initialize(attributes)
+        @attributes = attributes
+        assert_valid!
+      end
 
-    def quality(key: nil)
-      @attributes[:quality]
-    end
+      def degree
+        @attributes[:degree]
+      end
 
-    def ==(other)
-      @attributes.sort == other.attributes.sort
-    end
+      def quality(key: nil)
+        @attributes[:quality]
+      end
 
-    def inspect
-      "#{degree} #{quality.to_s.capitalize}".strip
-    end
+      def ==(other)
+        @attributes.sort == other.attributes.sort
+      end
 
-    private
+      def inspect
+        "#{degree} #{quality.to_s.capitalize}".strip
+      end
 
-    def assert_valid!
-      raise ArgumentError, 'degree attribute must be present' unless degree && degree.length > 0
-      raise ArgumentError, 'degree must be within 1-7' unless degree[-1].to_i&.between?(1, 7)
+      private
+
+      def assert_valid!
+        raise ArgumentError, 'degree attribute must be present' unless degree&.length&.positive?
+        raise ArgumentError, 'degree must be within 1-7' unless degree[-1].to_i&.between?(1, 7)
+      end
     end
   end
 end

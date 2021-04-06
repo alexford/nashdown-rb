@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Nashdown::Chart do
@@ -8,6 +10,8 @@ describe Nashdown::Chart do
       3_4- 5'''
     ND
   end
+
+  # NOTE: This comment is to reset broken highlighting :\
 
   let(:chart) { described_class.new(nd) }
 
